@@ -10,6 +10,6 @@ sub_table=Table(
     Column("count_model",String),
     Column("count_num",Integer),
     Column("modem_num",Integer),
-    Column("mopem_type",Boolean)
+    Column("modem_type",Boolean)
 
 )
