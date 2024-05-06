@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, text, insert
-from config import settings
-from model import metadata_obj, sub_table
+from src.config import settings
+
+from sqlalchemy.orm import Session, sessionmaker, DeclarativeBase
 
 engine=create_engine(
     url=settings.DATABASE_URL,
@@ -13,9 +14,7 @@ def eng_conn():
     with engine.connect() as conn:
         res=conn.execute(text("Select VERSION()"))
 
-def create_table():
-    metadata_obj.drop_all(engine)
-    metadata_obj.create_all(engine)
+
 
 def insert_data():
     with engine.connect() as conn:
@@ -27,5 +26,11 @@ def insert_data():
         conn.execute(stmt)
         conn.commit()
 
-create_table()
-insert_data()
+
+session_factory=sessionmaker(engine)
+
+class Base(DeclarativeBase):
+    pass
+
+""" create_table()
+insert_data() """
